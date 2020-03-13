@@ -16,6 +16,7 @@ $app->get('/', function() {
     
 	$page = new Page();
 
+
 	$page->setTpl("index");
 
 });
@@ -281,6 +282,26 @@ $app->get("/admin/categories/:idcategory/delete", function($idcategory){
 });
 
 
+$app->get("/categories/:idcategory", function($idcategory){
+	
+	User::veririfyLogin();
+
+	$category = new Category();
+	//converter para int o que está chegando ao acionar o método get
+	$category->getCategory((int)$idcategory);
+	
+	$products = new Products();
+	$products->getProductsByCategory((int)$idcategory);
+
+	//aqui vai ser a Page normal e não admin pq queremos puxar das pastas raiz de usuario e n adm
+	$page = new Page();
+
+	$page->setTpl("category", "products",[
+		"product"=>$products->getValues(),
+		"category"=>$category->getValues()
+	]);
+
+});
 
 $app->run();
 

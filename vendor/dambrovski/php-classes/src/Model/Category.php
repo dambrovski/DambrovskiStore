@@ -27,7 +27,7 @@ class Category extends Model{
             ":idcategory"=>$idcategory,
             ":descategory"=>$descategory
         ));
-        
+        Category::updateFileCategory(); 
         //INSERT INTO NOME_DA_TABELA (CAMPOS_QUE_DESEJA_INSERIR_DADOS) VALUES (VALORES_DOS_CAMPOS)
     }
     
@@ -40,7 +40,7 @@ class Category extends Model{
         $this->setData($results[0]);
         }
 
-        public function updateCategory(){
+    public function updateCategory(){
 
         $sql = new Sql();
                 
@@ -49,6 +49,7 @@ class Category extends Model{
             ":idcategory"=>$this->getidcategory(),
             ":descategory"=>$this->getdescategory(),
         ));
+        Category::updateFileCategory(); 
     }
 
     public function deleteCategory($idcategory){
@@ -59,6 +60,21 @@ class Category extends Model{
         $sql->query("DELETE FROM tb_categories WHERE idcategory = :idcategory",array(
             ":idcategory"=>$idcategory
         ));
+        Category::updateFileCategory(); 
+    }
+
+    public function updateFileCategory(){
+        $categories = $this->listAll();
+        $html = [];
+        foreach ($categories as $row) {
+            array_push($html, '<li><a href="/categories/' 
+            .$row['idcategory'] .'">'
+            .$row['descategory']. '</a></li>');
+        }
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . 
+        DIRECTORY_SEPARATOR . "views" . 
+        DIRECTORY_SEPARATOR . "categories-menu.html",
+        implode('', $html));
     }
 }
 

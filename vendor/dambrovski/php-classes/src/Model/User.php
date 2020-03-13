@@ -175,7 +175,7 @@ class User extends Model{
 
                 $code = base64_encode($code);
                 
-                $link = "localhost:8000/admin/forgot/reset?code=$code";
+                $link = "https://dambrovski-store.000webhostapp.com/admin/forgot/reset?code=$code";
 
                 $mailer = new Mailer($data["desemail"], $data["desperson"], "Redefinir Senha da Dambrovski Store", "forgot", array(
                     "name"=>$data["desperson"],
