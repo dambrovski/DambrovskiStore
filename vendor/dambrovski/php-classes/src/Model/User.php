@@ -98,8 +98,6 @@ class User extends Model{
             ));
 
             $this->setData($results[0]);
-            
-            //INSERT INTO NOME_DA_TABELA (CAMPOS_QUE_DESEJA_INSERIR_DADOS) VALUES (VALORES_DOS_CAMPOS)
         }
 
         public function getUser($iduser){

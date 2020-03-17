@@ -13,7 +13,7 @@ class Category extends Model{
 
             
         $sql = new Sql();
-        $results = $sql->select("SELECT * FROM tb_categories ORDER BY descategory");
+        $results = $sql->select("SELECT * FROM tb_categories ORDER BY idcategory");
         return $results;
     
     }
